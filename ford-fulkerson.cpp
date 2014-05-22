@@ -157,5 +157,26 @@ int main()
    cout << "Max flow is " << FordFulkerson(capacities, 0, N-1) << endl;
 
 
+
+////////// Skeina Fig 6.13
+
+   int M = 7;
+   vector<vector<int>> caps(M, vector<int>(M, 0));
+
+
+   caps[0][1] = 5;
+   caps[0][3] = 12;
+   caps[1][4] = 7;
+   caps[1][2] = caps[2][1] = 9;
+   caps[2][4] = caps[4][2] = 3;
+   caps[2][3] = caps[3][2] = 4;
+   caps[3][5] = 7;
+   caps[2][5] = caps[5][2] = 3;
+   caps[4][6] = 5;
+   caps[5][6] = 2;
+
+   cout << "Max flow is " << FordFulkerson(caps, 0, M-1) << endl;
+   
+
    return 0;
 }

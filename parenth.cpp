@@ -77,6 +77,37 @@ vector<string> IterativeParenth(int N)       // much uglier than the recursive s
 }
 
 
+void BitVectorParenth(int N)
+{
+   vector<string> goodies;
+   for (int i = 0; i < (1<<(2*N)); ++i)   // bit vector that represents combination of parenth
+   {
+      int sum = 0;
+      string current = "";
+      int j = 0;
+      for (j = 2*N - 1; j >= 0; --j)
+      {
+         int x = 1 & (i >> j);   // jth digit of i
+         sum += (x == 0 ? -1 : 1);   // 1 = '(', 0 = ')'.
+         current += (x == 0 ? ')' : '(');
+         if (sum < 0) break;    // never let number of ) exceed number of (        
+      }
+      if (j < 0 && sum == 0)   // we finished going through the above loop
+      {
+         goodies.push_back(current);
+      }
+   }
+
+   for (auto x: goodies)
+   {
+      cout << x << endl;
+   }
+
+
+}
+
+
+
 int main()
 {
   vector<string> results;
@@ -90,13 +121,17 @@ int main()
 	cout << *it << endl;
   }
 
-
   cout << endl << endl;
+  cout << "Iterative method:" << endl;
   vector<string> results2 = IterativeParenth(N);
   for (vector<string>::iterator it = results2.begin(); it != results2.end(); ++it)
   {
 	cout << *it << endl;
   }
+
+  cout << endl << endl;
+  cout << "With Bit Vector:" << endl << endl;
+  BitVectorParenth(N);
 
   return 1;
 }

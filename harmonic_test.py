@@ -93,9 +93,10 @@ def main():
         
         harmonic_f = partial(harmonic2_ND, n)
         anharmonic_f = partial(anharmonic2_ND, n)
-        num_random = n
+        num_random = 2*n
         super_vecs = normalized(rotate_away_last_dim(center_origin(find_orig_coords(n+1))))
         r_vecs = [s[:-1] for s in super_vecs] # drop the auxiliary last coordinate
+        r_vecs = r_vecs + [-x for x in r_vecs] # add the anti-simplex
         
         for i in range(num_tests):
             r_harms.append(random_aharmoniticity(harmonic_f, num_trials, num_random, mag, n))
